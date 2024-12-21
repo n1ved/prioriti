@@ -17,23 +17,21 @@ import { CheckboxReactHookFormMultiple } from "@/components/CheckboxReactHookFor
 import { Progress } from "@/components/ui/progress";
 import DigitalClock from "@/components/ui/DigitalClock";
 import { Textarea } from "@/components/ui/textarea";
-import {useContext} from "react";
+import React, {useContext} from "react";
 import {SharedDataContext} from './layout';
+import {Card, CardTitle} from "@/components/ui/card";
 
 export default function Page() {
   return (
     <SidebarProvider>
       <div className="flex ">
         <AppSidebar />
-        <main className="flex flex-row p-6">
+        <main className="flex flex-col p-6">
           {" "}
           {/* Add a main content area */}
           <div className="flex flex-1">
             <CheckboxReactHookFormMultiple />
           </div>
-          {/* <div className="flex-1"> */}
-          <Progress className="flex flex-1" />
-          {/* </div> */}
         </main>
       </div>
     </SidebarProvider>

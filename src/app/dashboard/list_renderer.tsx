@@ -44,7 +44,6 @@ export function ScheduleComponent({ data }: { data: DaySchedule[] }) {
             setTotalCount(totalCount + course.topics.length);
         });
     }, []);
-
     useEffect(() => {
         setTotalCount(0);
         setCourseTopics(
@@ -105,11 +104,12 @@ export function ScheduleComponent({ data }: { data: DaySchedule[] }) {
                                             <Checkbox
                                                 checked={topic.checked}
                                                 onCheckedChange={(checked) => {
+                                                    const newChecked = !!checked;
                                                     setCourseTopics(courseTopics.map((c, idx) =>
                                                         idx === courseIndex ? {
                                                             ...c,
                                                             topics: c.topics.map(t =>
-                                                                t.id === topic.id ? { ...t, checked: !!checked } : t
+                                                                t.id === topic.id ? { ...t, checked: newChecked } : t
                                                             )
                                                         } : c
                                                     ));

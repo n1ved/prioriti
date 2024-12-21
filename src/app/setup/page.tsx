@@ -57,12 +57,42 @@ export default function Setup(){
         const filesArray = rdFiles?.split(',');
         console.log(filesArray);
     }
+    async function uploadImages(imageFiles) {
+        const userAgent = 'curl/7.68.0';
+
+        for (const file of imageFiles.target.files) {
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('filename', file.name)
+
+            try {
+                const response = await fetch('http://x0.at/', {
+                    method: 'POST',
+                    headers: {
+                        'User-Agent': userAgent
+                    },
+                    body: formData,
+                    mode:'no-cors'
+                });
+
+                if (response.ok) {
+                    console.log(`Successfully uploaded ${file.name}`);
+                } else {
+                    //console.error(response);
+                }
+            } catch (error) {
+                console.error(`Error uploading ${file.name}:`, error);
+            }
+        }
+    }
+
+
 
     const uploadFile = (e : any) =>{
         for (const item of e.target.files) {
             const reader = new FileReader();
             reader.readAsDataURL(item);
-
+            console.log(item);
             reader.onload = () => {
                 console.log(URL.createObjectURL(item));
                 // @ts-ignore
@@ -90,7 +120,7 @@ export default function Setup(){
                     </CardHeader>
                     <CardContent>
                         <div className="flex flex-row">
-                            <Input onChange={uploadFile} type='file' name={'file'} multiple/>
+                            <Input onChange={uploadImages} type='file' name={'file'} multiple/>
                         </div>
                         <div className={'flex flex-col pt-5'}>
                             {files.map((file, index) => {
@@ -186,7 +216,11 @@ export default function Setup(){
                         () => {
                             console.log(startDate);
                             console.log(endDate);
-                            calculateTotalDays({startDate,endDate});
+                            if(startDate && endDate) {
+                                calculateTotalDays({startDate,endDate});
+                            }else {
+                                alert("Please fill all columns");
+                            }
                             writeLocalStorage();
                             echoLS();
                         }

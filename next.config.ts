@@ -1,7 +1,27 @@
-import type { NextConfig } from "next";
+import { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
-  /* config options here */
-};
+    reactStrictMode: true,
+    webpack(config) {
+        config.resolve.fallback = {
+            ...config.resolve.fallback,
+            fs: false,
+        };
+        return config;
+    },
+    images: {
+        domains: ['localhost'],
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: '**',
+            },
+        ],
+    },
+    typescript: {
+        ignoreBuildErrors: false,
+    },
+    swcMinify: true,
+}
 
-export default nextConfig;
+export default nextConfig

@@ -30,6 +30,7 @@ import {useContext} from "react";
 import {SharedDataContext} from "@/app/dashboard/layout";
 import {date} from "zod";
 import { ScheduleComponent} from "@/app/dashboard/list_renderer";
+import {Label} from "@/components/ui/label";
 
 type Item = {
   id?: string;
@@ -218,9 +219,10 @@ const filterScheduleByDate = (date: { toISOString: () => string; }, scheduleData
   // Convert date to YYYY-MM-DD format to match the data structure
   const formattedDate = formatedDate(date);
 
-  console.log(scheduleData.filter(schedule => schedule.date === formattedDate));
+  const data = scheduleData.filter(schedule => schedule.date === formattedDate);
+
   // Find the schedule for the selected date
-  return scheduleData.filter(schedule => schedule.date === formattedDate);
+  return data;
 };
 
 
@@ -235,7 +237,8 @@ export function CheckboxReactHookFormMultiple({ onProgressUpdate }: Props) {
       curDate,
       defaultItems
   );
-  // Load items from localStorage on component mount
+  // Load items from localStorage on component mountsetTotalCount(0);
+
   useEffect(() => {
     const savedItems = localStorage.getItem("sidebarItems");
     if (savedItems) {
@@ -244,7 +247,7 @@ export function CheckboxReactHookFormMultiple({ onProgressUpdate }: Props) {
       setItems(defaultItems);
       localStorage.setItem("sidebarItems", JSON.stringify(defaultItems));
     }
-  }, []);
+    }, []);
 
   // Load selected items from localStorage for form default values
   const savedSelectedItems =
@@ -276,6 +279,7 @@ export function CheckboxReactHookFormMultiple({ onProgressUpdate }: Props) {
       }
     });
     return () => subscription.unsubscribe();
+
   }, [form.watch, items]);
 
   const handleAddItem = () => {
@@ -332,58 +336,60 @@ export function CheckboxReactHookFormMultiple({ onProgressUpdate }: Props) {
 
 
   return (
-    <div className="space-y-4 flex flex-row-reverse ">
-      <div className="flex flex-col h-screen overflow-hidden">
-        <div className="flex flex-row justify-center">
-          <DigitalClock />
+      <div className="space-y-4 grid grid-cols-4 max-w-screen h-screen box-border">
+
+        <div className="w-full col-span-2 h-screen box-border">
+          <Form {...form}>
+            <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="flex flex-col space-y-8 p-4 rounded-lg shadow-md  h-screen overflow-y-scroll justify-between box-border"
+            >
+              <div>
+                <div className="flex gap-2 mb-4">
+                  <Input
+                      placeholder="New item label"
+                      value={newItemLabel}
+                      onChange={(e) => setNewItemLabel(e.target.value)}
+                  />
+                  <Button type="button" onClick={handleAddItem}>
+                    Add Item
+                  </Button>
+                </div>
+
+                <FormField
+                    control={form.control}
+                    name="items"
+                    render={() =>
+                        (filteredEvents.length === 0 ? <Label className="p-5">No Tasks Available for this day</Label> : <ScheduleComponent data={filteredEvents}/>)
+                    }
+                />
+              </div>
+              <div className="flex flex-col">
+                <Button type="submit" className="hover:bg-sky-500">
+                  Update
+                </Button>
+                <div className="min-h-10"/>
+              </div>
+            </form>
+          </Form>
         </div>
-        <Card className="w-[645px] h-[200px] p-4 ml-2">
-          <CardHeader>
-            <CardTitle>Task Progress</CardTitle>
-            <CardDescription>Your completion status</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Progress value={progress} className="h-2" />
-            <p className="text-sm text-muted-foreground mt-2">
-              {Math.round(progress)}% Complete
-            </p>
-          </CardContent>
-        </Card>
-        <div className="flex flex-row w-[670px] items-center space-x-2 p-6">
-          <Input type="text" placeholder="Type in your feedback..." />
-          <Button type="submit" className="rounded-xl">
-            <Send className="h-4 w-4" />
-          </Button>
+        <div className="flex flex-row-reverse w-full col-span-2 justify-between items-start h-screen overflow-hidden">
+          <div className="flex flex-row justify-center">
+            <DigitalClock/>
+          </div>
+          <Card className="w-[645px] h-[200px] p-4 ml-2">
+            <CardHeader>
+              <CardTitle>Task Progress</CardTitle>
+              <CardDescription>Your completion status</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Progress value={progress} className="h-2"/>
+              <p className="text-sm text-muted-foreground mt-2">
+                {Math.round(progress)}% Complete ({count}/{totalCount})
+              </p>
+            </CardContent>
+          </Card>
         </div>
       </div>
-      <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="flex flex-col space-y-8 p-4 rounded-lg shadow-md  overflow-y-scroll "
-        >
-          <div className="flex gap-2 mb-4 ">
-            <Input
-              placeholder="New item label"
-              value={newItemLabel}
-              onChange={(e) => setNewItemLabel(e.target.value)}
-            />
-            <Button type="button" onClick={handleAddItem}>
-              Add Item
-            </Button>
-          </div>
-
-          <FormField
-            control={form.control}
-            name="items"
-            render={() =>
-                (filteredEvents.length === 0 ? null : <ScheduleComponent data={filteredEvents} />)
-            }
-          />
-          <Button type="submit" className="hover:bg-sky-500">
-            Submit
-          </Button>
-        </form>
-      </Form>
-    </div>
   );
 }
