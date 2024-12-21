@@ -12,10 +12,10 @@ const DigitalClock = () => {
   const formatTime = () => {
     const hours = is24Hour ? time.getHours() : time.getHours() % 12 || 12;
     const minutes = time.getMinutes().toString().padStart(2, "0");
-    const seconds = time.getSeconds().toString().padStart(2, "0");
+    // const seconds = time.getSeconds().toString().padStart(2, "0");
     const amPm = is24Hour ? "" : time.getHours() >= 12 ? "PM" : "AM";
 
-    return `${hours}:${minutes}:${seconds} ${amPm}`;
+    return `${hours}:${minutes} ${amPm}`;
   };
 
   return (
