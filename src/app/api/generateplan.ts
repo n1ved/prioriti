@@ -132,7 +132,48 @@ async function generateStudyPlan(
   }
 }
 
-// API Route Handler
+// Function to modify the study plan based on user feedback
+async function modifyStudyPlan(currentPlan: any, feedback: string) {
+  const prompt = `You will be provided with a current study plan and feedback from the user. Based on this information, modify the study plan accordingly. Ensure the output is a valid JSON object.
+
+        Current Study Plan:
+        ${JSON.stringify(currentPlan)}
+
+        User Feedback:
+        ${feedback}
+        
+        The output MUST be a valid JSON object with the below format. Do not include any additional text.
+
+        {
+          "dates": [
+            {
+              "date": "YYYY-MM-DD",
+              "subjects": [
+                {
+                  "subject_name": "Course Name",
+                  "topics": [
+                    {
+                      "topic_name": "Topic Name",
+                      "topic_time": "Number of hours"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+  `;
+
+  try {
+    const result = await model.generateContent(prompt);
+    return result.response.text();
+  } catch (error) {
+    console.error('Error modifying study plan:', error);
+    throw new Error('Failed to modify study plan.');
+  }
+}
+
+// API Route Handler for generating the study plan
 export async function POST(req: Request) {
   try {
     await runMiddleware(req, corsMiddleware);
@@ -168,8 +209,31 @@ export async function POST(req: Request) {
   }
 }
 
+// API Route Handler for modifying the study plan
+export async function modifyPlanHandler(req: Request) {
+  try {
+    await runMiddleware(req, corsMiddleware);
+
+    const { currentPlan, feedback } = await req.json();
+
+    const modifiedPlan = await modifyStudyPlan(currentPlan, feedback);
+
+    try {
+      const parsedModifiedPlan = JSON.parse(modifiedPlan);
+      return NextResponse.json({ modifiedPlan: parsedModifiedPlan }, { status: 200 });
+    } catch (parseError) {
+      console.error("Error parsing JSON:", parseError);
+      return NextResponse.json({ error: "Failed to parse the modified study plan JSON output" }, { status: 500 });
+    }
+
+  } catch (error) {
+    console.error('Error processing request:', error);
+    return NextResponse.json({ error: 'Server error' }, { status: 500 });
+  }
+}
+
 export const config = {
   api: {
-    bodyParser: false,
+    bodyParser: true,
   },
 };
