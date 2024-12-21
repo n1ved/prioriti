@@ -149,8 +149,8 @@ export function CheckboxReactHookFormMultiple({ onProgressUpdate }: Props) {
   }
 
   return (
-    <div className="space-y-4 flex flex-row-reverse">
-      <div className="flex flex-col h-screen">
+    <div className="space-y-4 flex flex-row-reverse ">
+      <div className="flex flex-col h-screen overflow-hidden">
         <div className="flex flex-row justify-center">
           <DigitalClock />
         </div>
@@ -176,9 +176,9 @@ export function CheckboxReactHookFormMultiple({ onProgressUpdate }: Props) {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="flex flex-col space-y-8 p-4 rounded-lg shadow-md"
+          className="flex flex-col space-y-8 p-4 rounded-lg shadow-md  overflow-y-scroll "
         >
-          <div className="flex gap-2 mb-4">
+          <div className="flex gap-2 mb-4 ">
             <Input
               placeholder="New item label"
               value={newItemLabel}
