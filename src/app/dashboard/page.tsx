@@ -17,6 +17,8 @@ import { CheckboxReactHookFormMultiple } from "@/components/CheckboxReactHookFor
 import { Progress } from "@/components/ui/progress";
 import DigitalClock from "@/components/ui/DigitalClock";
 import { Textarea } from "@/components/ui/textarea";
+import {useContext} from "react";
+import {SharedDataContext} from './layout';
 
 export default function Page() {
   return (

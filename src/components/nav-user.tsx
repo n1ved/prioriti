@@ -42,9 +42,9 @@ export function NavUser({
       <SidebarMenuItem>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <text className="flex flex-row p-2 justify-center text-lg font-bold">
+            <div className="flex flex-row p-2 justify-center text-lg font-bold">
               prioriti
-            </text>
+            </div>
           </DropdownMenuTrigger>
         </DropdownMenu>
       </SidebarMenuItem>

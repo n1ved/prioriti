@@ -6,6 +6,8 @@ import { DayPicker } from "react-day-picker"
 
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
+import {useContext} from "react";
+import {SharedDataContext} from "@/app/dashboard/layout";
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker>
 
@@ -15,9 +17,24 @@ function Calendar({
   showOutsideDays = true,
   ...props
 }: CalendarProps) {
-  return (
+
+    // @ts-ignore
+    const {curDate , setCurDate} = useContext(SharedDataContext);
+
+    const handleSelect = (date: Date | undefined) => {
+        console.log(date);
+        if (date) {
+            setCurDate(date);
+        }
+    };
+
+
+    return (
     <DayPicker
       showOutsideDays={showOutsideDays}
+      selected={curDate}
+      mode='single'
+      onSelect={(date: Date | undefined) => handleSelect(date)}
       className={cn("p-3", className)}
       classNames={{
         months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",

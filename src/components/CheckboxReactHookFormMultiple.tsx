@@ -26,10 +26,22 @@ import { Progress } from "@/components/ui/progress";
 import DigitalClock from "./ui/DigitalClock";
 import { FileDigit } from "lucide-react";
 import { Send } from "lucide-react";
+import {useContext} from "react";
+import {SharedDataContext} from "@/app/dashboard/layout";
+import {date} from "zod";
+import { ScheduleComponent} from "@/app/dashboard/list_renderer";
 
 type Item = {
-  id: string;
-  label: string;
+  id?: string;
+  label?: string;
+  date?: string;
+    courses?: {
+        course_name: string;
+        topics: {
+        topic_name: string;
+        time: string;
+        }[];
+    }[];
 };
 
 type Props = {
@@ -41,20 +53,187 @@ type FormData = {
 };
 
 const defaultItems: Item[] = [
-  { id: "recents", label: "Recents" },
-  { id: "home", label: "Home" },
-  { id: "applications", label: "Applications" },
-  { id: "desktop", label: "Desktop" },
-  { id: "downloads", label: "Downloads" },
-  { id: "documents", label: "Documents" },
-];
+  {
+    "date": "2024-12-21",
+    "courses": [
+      {
+        "course_name": "Compiler Design",
+        "topics": [
+          {
+            "topic_name": "Analysis of the source program",
+            "time": "30 minutes"
+          },
+          {
+            "topic_name": "Phases of a compiler",
+            "time": "60 minutes"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "date": "2024-12-24",
+    "courses": [
+      {
+        "course_name": "Compiler Design",
+        "topics": [
+          {
+            "topic_name": "Compiler writing tools",
+            "time": "60 minutes"
+          },
+          {
+            "topic_name": "Bootstrapping",
+            "time": "60 minutes"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "date": "2024-12-25",
+    "courses": [
+      {
+        "course_name": "Programming in Python",
+        "topics": [
+          {
+            "topic_name": "Getting started with Python programming",
+            "time": "60 minutes"
+          },
+          {
+            "topic_name": "Interactive shell, IDLE, iPython Notebooks",
+            "time": "60 minutes"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "date": "2024-12-26",
+    "courses": [
+      {
+        "course_name": "Programming in Python",
+        "topics": [
+          {
+            "topic_name": "Numeric data types and character sets",
+            "time": "60 minutes"
+          },
+          {
+            "topic_name": "Expressions",
+            "time": "60 minutes"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "date": "2024-12-27",
+    "courses": [
+      {
+        "course_name": "Programming in Python",
+        "topics": [
+          {
+            "topic_name": "Control statements",
+            "time": "60 minutes"
+          },
+          {
+            "topic_name": "Iteration with for/while loop",
+            "time": "60 minutes"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "date": "2024-12-28",
+    "courses": [
+      {
+        "course_name": "Comprehensive Course Work",
+        "topics": [
+          {
+            "topic_name": "Discrete Mathematical Structures - Module 1 and Module 2",
+            "time": "60 minutes"
+          },
+          {
+            "topic_name": "Data Structures - Module 1, Module 2 and Module 3",
+            "time": "60 minutes"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "date": "2024-12-29",
+    "courses": [
+      {
+        "course_name": "Comprehensive Course Work",
+        "topics": [
+          {
+            "topic_name": "Operating Systems - Module 1 and Module 2",
+            "time": "60 minutes"
+          },
+          {
+            "topic_name": "Computer Organization And Architecture - Module 1, Module 2 and Module 3",
+            "time": "60 minutes"
+          }
+        ]
+      },
+      {
+        "course_name" : "Programming in Python",
+        "topics" : [
+          {
+            "topic_name": "Test Data 1",
+            "time": "30 minutes"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "date": "2024-12-30",
+    "courses": [
+      {
+        "course_name": "Industrial Economics & Foreign Trade",
+        "topics": [
+          {
+            "topic_name": "Scarcity and choice",
+            "time": "60 minutes"
+          },
+          {
+            "topic_name": "Basic economic problems",
+            "time": "60 minutes"
+          }
+        ]
+      }
+    ]
+  }
+]
+
+function formatedDate(date: Date) {
+    //format in YYYY-MM-DD
+    return date.toISOString().split('T')[0];
+}
+
+const filterScheduleByDate = (date: { toISOString: () => string; }, scheduleData: any[]) => {
+  // Convert date to YYYY-MM-DD format to match the data structure
+  const formattedDate = date.toISOString().split('T')[0];
+
+  console.log(scheduleData.filter(schedule => schedule.date === formattedDate));
+  // Find the schedule for the selected date
+  return scheduleData.filter(schedule => schedule.date === formattedDate);
+};
+
+
 
 export function CheckboxReactHookFormMultiple({ onProgressUpdate }: Props) {
   const { toast } = useToast();
   const [items, setItems] = useState<Item[]>([]);
   const [newItemLabel, setNewItemLabel] = useState("");
   const [progress, setProgress] = useState(0);
-
+  const {curDate , setCurDate , count , setCount , totalCount , setTotalCount} = useContext(SharedDataContext);
+  const filteredEvents = filterScheduleByDate(
+      curDate,
+      defaultItems
+  );
   // Load items from localStorage on component mount
   useEffect(() => {
     const savedItems = localStorage.getItem("sidebarItems");
@@ -84,8 +263,9 @@ export function CheckboxReactHookFormMultiple({ onProgressUpdate }: Props) {
   // Track progress and save to localStorage
   useEffect(() => {
     const subscription = form.watch((value) => {
-      const selectedCount = value.items?.length || 0;
-      const totalCount = items.length;
+      const selectedCount = count;
+      // @ts-ignore
+      const totalCount = totalCount;
       const progressValue =
         totalCount > 0 ? (selectedCount / totalCount) * 100 : 0;
       setProgress(progressValue);
@@ -192,64 +372,9 @@ export function CheckboxReactHookFormMultiple({ onProgressUpdate }: Props) {
           <FormField
             control={form.control}
             name="items"
-            render={() => (
-              <FormItem>
-                <div className="mb-4">
-                  <FormLabel className="text-base">
-                    Management of Software Systems
-                  </FormLabel>
-                  <FormDescription>
-                    These are the topics to be studied today
-                  </FormDescription>
-                </div>
-                <div className="flex flex-col flex-wrap gap-4 w-[500px]">
-                  {items.map((item) => (
-                    <FormField
-                      key={item.id}
-                      control={form.control}
-                      name="items"
-                      render={({ field }) => (
-                        <FormItem
-                          key={item.id}
-                          className="flex flex-row flex-wrap items-center space-x-3 space-y-0 min-w-[300px]"
-                        >
-                          <FormControl>
-                            <Checkbox
-                              checked={field.value?.includes(item.id)}
-                              onCheckedChange={(checked) => {
-                                return checked
-                                  ? field.onChange([...field.value, item.id])
-                                  : field.onChange(
-                                      field.value?.filter(
-                                        (value) => value !== item.id,
-                                      ),
-                                    );
-                              }}
-                            />
-                          </FormControl>
-                          <Input
-                            value={item.label}
-                            onChange={(e) =>
-                              handleEditLabel(item.id, e.target.value)
-                            }
-                            className="flex flex-col flex-wrap w-[400px]"
-                          />
-                          <Button
-                            type="button"
-                            variant="destructive"
-                            size="sm"
-                            onClick={() => handleDeleteItem(item.id)}
-                          >
-                            Delete
-                          </Button>
-                        </FormItem>
-                      )}
-                    />
-                  ))}
-                </div>
-                <FormMessage />
-              </FormItem>
-            )}
+            render={() =>
+                (filteredEvents.length === 0 ? null : <ScheduleComponent data={filteredEvents} />)
+            }
           />
           <Button type="submit" className="hover:bg-sky-500">
             Submit
