@@ -19,7 +19,11 @@ export default function Setup(){
 
     const [files , setFiles] = useState([]);
     const [fname , setFname] = useState([]);
-
+    const [suggestion , setSuggestion] = useState<string>();
+    const [weekdays , setWeekdays] = useState<string>();
+    const [weekends , setWeekends] = useState<string>();
+    const [startDate , setStartDate] = useState<string>();
+    const [endDate , setEndDate] = useState<string>();
     const uploadFile = (e : any) =>{
         for (const item of e.target.files) {
             const reader = new FileReader();
@@ -60,9 +64,14 @@ export default function Setup(){
                                     <Button
                                         variant={'destructive'}
                                         onClick={() =>
-                                            setFiles((files) =>
-                                                files.filter((_, i) => i !== index)
-                                            )
+                                            {
+                                                setFiles((files) =>
+                                                    files.filter((_, i) => i !== index)
+                                                );
+                                                setFname((fname) =>
+                                                    fname.filter((_, i) => i !== index)
+                                                );
+                                            }
                                         }
                                     >
                                         Delete
@@ -85,11 +94,19 @@ export default function Setup(){
 
                         <div className="flex w-full max-w-sm items-center space-x-2">
                             <Button type="submit" disabled>Weekdays</Button>
-                            <Input type="number" placeholder="Hours"/>
+                            <Input type="number" placeholder="Hours"
+                                onChange={(text) =>
+                                    setWeekdays(text.target.value)
+                                }
+                            />
                         </div>
                         <div className="flex w-full max-w-sm items-center space-x-2 pt-5">
                             <Button type="submit" disabled>Weekends</Button>
-                            <Input type="number" placeholder="Hours"/>
+                            <Input type="number" placeholder="Hours"
+                                onChange={(text) => {
+                                    setWeekends(text.target.value);
+                                }}
+                            />
                         </div>
                         <div className="flex flex-col w-full max-w-sm items-start pt-5">
                             <br/>
@@ -97,7 +114,11 @@ export default function Setup(){
                                 Semester Duration
                             </CardTitle>
                             <br/>
-                            <DatePickerWithRange/>
+                            <DatePickerWithRange
+                                onDataReturn={(value) => {
+                                    console.log(value)
+                                }}
+                            />
                         </div>
                     </CardContent>
                 </Card>
@@ -110,7 +131,11 @@ export default function Setup(){
                         <CardDescription> Suggest custom features such as priority of each subject or that you want to AI keep in mind while creating the schedule</CardDescription>
                     </CardHeader>
                     <CardContent>
-                        <Input type="text" placeholder="Enter suggestions"/>
+                        <Input type="text" placeholder="Enter suggestions"
+                            onChange={(text) => {
+                                setSuggestion(text.target.value);
+                            }}
+                        />
                     </CardContent>
                 </Card>
             </div>
