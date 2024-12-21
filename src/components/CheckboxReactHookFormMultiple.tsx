@@ -209,13 +209,14 @@ const defaultItems: Item[] = [
 ]
 
 function formatedDate(date: Date) {
-    //format in YYYY-MM-DD
-    return date.toISOString().split('T')[0];
+  const offset = date.getTimezoneOffset();
+  const localDate = new Date(date.getTime() - offset * 60 * 1000);
+  return localDate.toISOString().split('T')[0];
 }
 
 const filterScheduleByDate = (date: { toISOString: () => string; }, scheduleData: any[]) => {
   // Convert date to YYYY-MM-DD format to match the data structure
-  const formattedDate = date.toISOString().split('T')[0];
+  const formattedDate = formatedDate(date);
 
   console.log(scheduleData.filter(schedule => schedule.date === formattedDate));
   // Find the schedule for the selected date
@@ -327,6 +328,8 @@ export function CheckboxReactHookFormMultiple({ onProgressUpdate }: Props) {
       ),
     });
   }
+
+
 
   return (
     <div className="space-y-4 flex flex-row-reverse ">

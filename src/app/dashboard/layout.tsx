@@ -15,7 +15,9 @@ export default function RootLayout({ children }) {
         curDate : curDate,
         setCurDate : setCurDate,
         count : count,
-        setCount : setCount
+        setCount : setCount,
+        totalCount : totalCount,
+        setTotalCount : setTotalCount
     }
 
     return (
