@@ -1,18 +1,11 @@
 'use client';
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+import {Card, CardContent, CardDescription, CardHeader, CardTitle,} from "@/components/ui/card"
+import {Input} from "@/components/ui/input"
+import {Label} from "@/components/ui/label"
 import {Button} from "@/components/ui/button";
 import {useState} from "react";
 import {DatePickerWithRange} from "@/app/setup/CalendarComponent";
-
+import {addDays} from "date-fns";
 
 
 export default function Setup(){
@@ -22,19 +15,60 @@ export default function Setup(){
     const [suggestion , setSuggestion] = useState<string>();
     const [weekdays , setWeekdays] = useState<string>();
     const [weekends , setWeekends] = useState<string>();
-    const [startDate , setStartDate] = useState<string>();
-    const [endDate , setEndDate] = useState<string>();
+    const [startDate , setStartDate] = useState<Date>();
+    const [endDate , setEndDate] = useState<Date>();
+
+    interface DateCalculation {
+        startDate: string | Date;
+        endDate: string | Date;
+    }
+
+    const calculateTotalDays = ({ startDate, endDate }: DateCalculation): number => {
+        const start = new Date(startDate);
+        const end = new Date(endDate);
+
+        // Add 1 to include both start and end dates
+        const diff = Math.abs(end.getTime() - start.getTime());
+        const days = Math.ceil(diff / (1000 * 60 * 60 * 24)) + 1;
+        console.log(days);
+        return days;
+    }
+
+    function writeLocalStorage(){
+        console.log('Writing to Local Storage');
+        //EndDate
+        localStorage.setItem('endDate', endDate.toString());
+        //NextRefreshDate , 10 days after startDate
+        localStorage.setItem('nextRefreshDate', addDays(startDate, 10).toString());
+
+        //Hours
+        localStorage.setItem('hours' , [weekdays,weekends].toString());
+        //Files
+
+        //Suggestion
+        localStorage.setItem('suggestion', suggestion.toString());
+    }
+
+    function echoLS(){
+        //read files
+        const rdFiles = localStorage.getItem('files');
+        console.log(rdFiles);
+        //convert files back to object array
+        const filesArray = rdFiles?.split(',');
+        console.log(filesArray);
+    }
+
     const uploadFile = (e : any) =>{
         for (const item of e.target.files) {
             const reader = new FileReader();
             reader.readAsDataURL(item);
 
             reader.onload = () => {
-                console.log(item);
+                console.log(URL.createObjectURL(item));
                 // @ts-ignore
                 setFiles((files) => [...files, reader.result]);
                 // @ts-ignore
-                setFname((fname) => [...fname, item.name]);
+                setFname((fname) => [...fname, URL.createObjectURL(item)]);
                 console.log(files);
             };
             reader.onerror = () => {
@@ -44,7 +78,11 @@ export default function Setup(){
     }
     return (
         <div className="main w-full min-h-screen box-border p-50 flex flex-col justify-center items-center bg-gradient-to-r from-white to-gray-100">
-
+            <div className={"w-1/3 my-10"}>
+                <h1
+                    className="text-4xl font-bold"
+                >Get Started</h1>
+            </div>
             <div className="w-1/3 mt-50">
                 <Card>
                     <CardHeader>
@@ -116,7 +154,8 @@ export default function Setup(){
                             <br/>
                             <DatePickerWithRange
                                 onDataReturn={(value) => {
-                                    console.log(value)
+                                    setStartDate(value.from);
+                                    setEndDate(value.to);
                                 }}
                             />
                         </div>
@@ -143,6 +182,15 @@ export default function Setup(){
             <div className="w-1/3 pt-10">
                 <Button
                     className="w-full"
+                    onClick={
+                        () => {
+                            console.log(startDate);
+                            console.log(endDate);
+                            calculateTotalDays({startDate,endDate});
+                            writeLocalStorage();
+                            echoLS();
+                        }
+                    }
                 >
                     Start Creating
                 </Button>
