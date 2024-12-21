@@ -23,6 +23,9 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
+import DigitalClock from "./ui/DigitalClock";
+import { FileDigit } from "lucide-react";
+import { Send } from "lucide-react";
 
 type Item = {
   id: string;
@@ -146,20 +149,30 @@ export function CheckboxReactHookFormMultiple({ onProgressUpdate }: Props) {
   }
 
   return (
-    <div className="space-y-8">
-      <Card className="w-[350px]">
-        <CardHeader>
-          <CardTitle>Task Progress</CardTitle>
-          <CardDescription>Your completion status</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Progress value={progress} className="h-2" />
-          <p className="text-sm text-muted-foreground mt-2">
-            {Math.round(progress)}% Complete
-          </p>
-        </CardContent>
-      </Card>
-
+    <div className="space-y-4 flex flex-row-reverse">
+      <div className="flex flex-col h-screen">
+        <div className="flex flex-row justify-center">
+          <DigitalClock />
+        </div>
+        <Card className="w-[645px] h-[200px] p-4 ml-2">
+          <CardHeader>
+            <CardTitle>Task Progress</CardTitle>
+            <CardDescription>Your completion status</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Progress value={progress} className="h-2" />
+            <p className="text-sm text-muted-foreground mt-2">
+              {Math.round(progress)}% Complete
+            </p>
+          </CardContent>
+        </Card>
+        <div className="flex flex-row w-[670px] items-center space-x-2 p-6">
+          <Input type="text" placeholder="Type in your feedback..." />
+          <Button type="submit" className="rounded-xl">
+            <Send className="h-4 w-4" />
+          </Button>
+        </div>
+      </div>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
