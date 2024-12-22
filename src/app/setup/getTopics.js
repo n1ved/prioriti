@@ -141,15 +141,15 @@ import fetch from "node-fetch";
 
 
 // Test the function
-// console.log(await up([
-//     "https://x0.at/V1FB.jpeg",
-//     "https://x0.at/JHal.jpeg",
-//     "https://x0.at/e2ir.jpeg",
-//     "https://x0.at/UPxd.jpeg"
-// ]));
+console.log(await up([
+    "https://x0.at/V1FB.jpeg",
+    "https://x0.at/JHal.jpeg",
+    "https://x0.at/e2ir.jpeg",
+    "https://x0.at/UPxd.jpeg"
+]));
 
 
-async function up(links) {
+export async function up(links) {
     let images = [];
     for (const link of links) {
         const imageResp = await fetch(link)

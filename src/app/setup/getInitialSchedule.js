@@ -2,7 +2,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 const genAI = new GoogleGenerativeAI("AIzaSyA9Qcf_c6YETaAbttvWUCQWNKxbGlF45VQ");
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-async function createSch(syllabus,start_date,end_date,hours){
+export async function createSch(syllabus,start_date,end_date,hours){
     const prompt = syllabus+`you are given the syllabus and course details of all courses in the array. the student should learn all the course in from ${start_date} to ${end_date}. Create a schedule for studying the course thought the time specified where each day the student has ${hours} to study. The schedule should specify the date, the course name and the topics for said day that the student should study. And for each topic there should also be a recommended time to study said topic in minutes. the schedule and allotted time should be specified based on the difficulty of the topic/course and the credit for the course. Make sure all the given courses the student will study to completion after the period specified.All course should have about an uniform progress. give the schedule for the first 10 days.`+`[
 {
 "date": "2024-12-21",
@@ -567,3 +567,4 @@ give  output like this with just the schedule array without any other additional
 //     ]
 //   }
 // ]`,`2024-12-20`,`2025-04-31`,'2 hours'));
+

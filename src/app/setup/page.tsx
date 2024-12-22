@@ -6,10 +6,15 @@ import {Button} from "@/components/ui/button";
 import {useState} from "react";
 import {DatePickerWithRange} from "@/app/setup/CalendarComponent";
 import {addDays} from "date-fns";
+import {createSch} from "@/app/setup/getInitialSchedule";
+import Interceptors from "undici-types/interceptors";
+import redirect = Interceptors.redirect;
+import {useRouter} from "next/navigation";
+import {up} from "@/app/setup/getTopics";
 
 
 export default function Setup(){
-
+    const router = useRouter();
     const [files , setFiles] = useState([]);
     const [fname , setFname] = useState([]);
     const [suggestion , setSuggestion] = useState<string>();
@@ -47,6 +52,11 @@ export default function Setup(){
 
         //Suggestion
         localStorage.setItem('suggestion', suggestion.toString());
+        initSchedule().then(
+            () => {
+                router.push('/dashboard');
+            }
+        )
     }
 
     function echoLS(){
@@ -85,8 +95,18 @@ export default function Setup(){
             }
         }
     }
+    async function initSchedule(){
+        const getTopics = await up(
+            "https://x0.at/V1FB.jpeg",
+            "https://x0.at/JHal.jpeg",
+            "https://x0.at/e2ir.jpeg",
+            "https://x0.at/UPxd.jpeg"
+        );
 
-
+        localStorage.setItem("syllabus", getTopics.toString());
+        const response = await createSch(getTopics.toString(),startDate?.toString(),endDate?.toString(),weekdays?.toString());
+        localStorage.setItem("initsch" , response);
+    }
 
     const uploadFile = (e : any) =>{
         for (const item of e.target.files) {

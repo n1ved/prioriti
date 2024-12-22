@@ -53,161 +53,162 @@ type FormData = {
   items: string[];
 };
 
-const defaultItems: Item[] = [
-  {
-    "date": "2024-12-21",
-    "courses": [
-      {
-        "course_name": "Compiler Design",
-        "topics": [
-          {
-            "topic_name": "Analysis of the source program",
-            "time": "30 minutes"
-          },
-          {
-            "topic_name": "Phases of a compiler",
-            "time": "60 minutes"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "date": "2024-12-24",
-    "courses": [
-      {
-        "course_name": "Compiler Design",
-        "topics": [
-          {
-            "topic_name": "Compiler writing tools",
-            "time": "60 minutes"
-          },
-          {
-            "topic_name": "Bootstrapping",
-            "time": "60 minutes"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "date": "2024-12-25",
-    "courses": [
-      {
-        "course_name": "Programming in Python",
-        "topics": [
-          {
-            "topic_name": "Getting started with Python programming",
-            "time": "60 minutes"
-          },
-          {
-            "topic_name": "Interactive shell, IDLE, iPython Notebooks",
-            "time": "60 minutes"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "date": "2024-12-26",
-    "courses": [
-      {
-        "course_name": "Programming in Python",
-        "topics": [
-          {
-            "topic_name": "Numeric data types and character sets",
-            "time": "60 minutes"
-          },
-          {
-            "topic_name": "Expressions",
-            "time": "60 minutes"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "date": "2024-12-27",
-    "courses": [
-      {
-        "course_name": "Programming in Python",
-        "topics": [
-          {
-            "topic_name": "Control statements",
-            "time": "60 minutes"
-          },
-          {
-            "topic_name": "Iteration with for/while loop",
-            "time": "60 minutes"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "date": "2024-12-28",
-    "courses": [
-      {
-        "course_name": "Comprehensive Course Work",
-        "topics": [
-          {
-            "topic_name": "Discrete Mathematical Structures - Module 1 and Module 2",
-            "time": "60 minutes"
-          },
-          {
-            "topic_name": "Data Structures - Module 1, Module 2 and Module 3",
-            "time": "60 minutes"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "date": "2024-12-29",
-    "courses": [
-      {
-        "course_name": "Comprehensive Course Work",
-        "topics": [
-          {
-            "topic_name": "Operating Systems - Module 1 and Module 2",
-            "time": "60 minutes"
-          },
-          {
-            "topic_name": "Computer Organization And Architecture - Module 1, Module 2 and Module 3",
-            "time": "60 minutes"
-          }
-        ]
-      },
-      {
-        "course_name" : "Programming in Python",
-        "topics" : [
-          {
-            "topic_name": "Test Data 1",
-            "time": "30 minutes"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "date": "2024-12-30",
-    "courses": [
-      {
-        "course_name": "Industrial Economics & Foreign Trade",
-        "topics": [
-          {
-            "topic_name": "Scarcity and choice",
-            "time": "60 minutes"
-          },
-          {
-            "topic_name": "Basic economic problems",
-            "time": "60 minutes"
-          }
-        ]
-      }
-    ]
-  }
-]
+// const defaultItems: Item[] = [
+//   {
+//     "date": "2024-12-21",
+//     "courses": [
+//       {
+//         "course_name": "Compiler Design",
+//         "topics": [
+//           {
+//             "topic_name": "Analysis of the source program",
+//             "time": "30 minutes"
+//           },
+//           {
+//             "topic_name": "Phases of a compiler",
+//             "time": "60 minutes"
+//           }
+//         ]
+//       }
+//     ]
+//   },
+//   {
+//     "date": "2024-12-24",
+//     "courses": [
+//       {
+//         "course_name": "Compiler Design",
+//         "topics": [
+//           {
+//             "topic_name": "Compiler writing tools",
+//             "time": "60 minutes"
+//           },
+//           {
+//             "topic_name": "Bootstrapping",
+//             "time": "60 minutes"
+//           }
+//         ]
+//       }
+//     ]
+//   },
+//   {
+//     "date": "2024-12-25",
+//     "courses": [
+//       {
+//         "course_name": "Programming in Python",
+//         "topics": [
+//           {
+//             "topic_name": "Getting started with Python programming",
+//             "time": "60 minutes"
+//           },
+//           {
+//             "topic_name": "Interactive shell, IDLE, iPython Notebooks",
+//             "time": "60 minutes"
+//           }
+//         ]
+//       }
+//     ]
+//   },
+//   {
+//     "date": "2024-12-26",
+//     "courses": [
+//       {
+//         "course_name": "Programming in Python",
+//         "topics": [
+//           {
+//             "topic_name": "Numeric data types and character sets",
+//             "time": "60 minutes"
+//           },
+//           {
+//             "topic_name": "Expressions",
+//             "time": "60 minutes"
+//           }
+//         ]
+//       }
+//     ]
+//   },
+//   {
+//     "date": "2024-12-27",
+//     "courses": [
+//       {
+//         "course_name": "Programming in Python",
+//         "topics": [
+//           {
+//             "topic_name": "Control statements",
+//             "time": "60 minutes"
+//           },
+//           {
+//             "topic_name": "Iteration with for/while loop",
+//             "time": "60 minutes"
+//           }
+//         ]
+//       }
+//     ]
+//   },
+//   {
+//     "date": "2024-12-28",
+//     "courses": [
+//       {
+//         "course_name": "Comprehensive Course Work",
+//         "topics": [
+//           {
+//             "topic_name": "Discrete Mathematical Structures - Module 1 and Module 2",
+//             "time": "60 minutes"
+//           },
+//           {
+//             "topic_name": "Data Structures - Module 1, Module 2 and Module 3",
+//             "time": "60 minutes"
+//           }
+//         ]
+//       }
+//     ]
+//   },
+//   {
+//     "date": "2024-12-29",
+//     "courses": [
+//       {
+//         "course_name": "Comprehensive Course Work",
+//         "topics": [
+//           {
+//             "topic_name": "Operating Systems - Module 1 and Module 2",
+//             "time": "60 minutes"
+//           },
+//           {
+//             "topic_name": "Computer Organization And Architecture - Module 1, Module 2 and Module 3",
+//             "time": "60 minutes"
+//           }
+//         ]
+//       },
+//       {
+//         "course_name" : "Programming in Python",
+//         "topics" : [
+//           {
+//             "topic_name": "Test Data 1",
+//             "time": "30 minutes"
+//           }
+//         ]
+//       }
+//     ]
+//   },
+//   {
+//     "date": "2024-12-30",
+//     "courses": [
+//       {
+//         "course_name": "Industrial Economics & Foreign Trade",
+//         "topics": [
+//           {
+//             "topic_name": "Scarcity and choice",
+//             "time": "60 minutes"
+//           },
+//           {
+//             "topic_name": "Basic economic problems",
+//             "time": "60 minutes"
+//           }
+//         ]
+//       }
+//     ]
+//   }
+// ]
+const defaultItems = localStorage.getItem("initsch");
 
 function formatedDate(date: Date) {
   const offset = date.getTimezoneOffset();
