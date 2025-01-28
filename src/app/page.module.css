@@ -1,0 +1,29 @@
+.main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+    background: linear-gradient(45deg, var(--background-200), var(--background-200), var(--background-400), var(--background-400), var(--background-500), var(--background-600), var(--background-600), var(--background-700), var(--background-700), var(--background-900));
+    overflow: hidden;
+    animation: main_bg_animation 100ms infinite;
+}
+
+.main h1{
+    font-size: 5rem;
+    color: #fff;
+    text-align: center;
+}
+
+@keyframes main_bg_animation {
+    0% {
+        background-position: 0 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0 50%;
+    }
+}
