@@ -1,6 +1,6 @@
 import styles from "./page.module.css";
 import { Quicksand } from 'next/font/google'
-import PrimaryButton from "@/components/buttons/primaryButton";
+import PrimaryButton from "@/components/buttons/PrimaryButton";
 
 const quicksand = Quicksand({
     subsets: ['latin'],
