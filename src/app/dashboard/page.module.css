@@ -68,4 +68,11 @@
     align-items: start;
     width: 100%;
     margin: 1rem 0;
+    max-height: 100%;
+    box-sizing: border-box;
+}
+.progress_cards:last-child{
+    overflow-y:scroll;
+    overflow-x: hidden;
+    scrollbar-width: thin;
 }

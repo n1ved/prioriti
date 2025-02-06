@@ -14,10 +14,20 @@ export default function Dashboard() {
                 <h2>Checklist</h2>
               </section>
               <section className={styles.progress_container}>
-                <h2>Progress</h2>
+                <h2>Today's Tasks</h2>
+                <div className={styles.progress_cards}>
+                  <ProgressCard
+                        id="CST301"
+                        courseName="Computer Graphics"
+                        currentProgress={1}
+                        totalProgress={3}
+                        progressColor="#FFD700"
+                  />
+                </div>
+                <h2>Total Progress</h2>
                 <div className={styles.progress_cards}>
                   {progressData.map((data) => (
-                    <ProgressCard key={data.id} {...data} />
+                      <ProgressCard key={data.id} {...data} />
                   ))}
                 </div>
               </section>

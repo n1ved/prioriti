@@ -7,7 +7,7 @@ interface ProgressCardProps {
 }
 export default function ProgressCard({id,courseName,currentProgress,totalProgress,progressColor}: ProgressCardProps) {
     return (
-        <div className={"flex flex-col space-y-4 bg-background-300 w-full p-5 m-2 rounded-2xl"}>
+        <div className={"flex flex-col space-y-4 bg-background-300 w-11/12 p-5 m-2 box-border rounded-2xl"}>
             <div className={"flex flex-row justify-between"}>
                 <h3 className={"text-lg font-semibold"}>{courseName}</h3>
                 <p className={"text-md"}>{currentProgress}/{totalProgress}</p>
