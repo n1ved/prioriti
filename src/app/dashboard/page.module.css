@@ -61,7 +61,7 @@
     width: 100%;
 }
 
-.progress_cards{
+.progress_cards,.checklist_cards{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -71,7 +71,7 @@
     max-height: 100%;
     box-sizing: border-box;
 }
-.progress_cards:last-child{
+.progress_cards:last-child,.checklist_cards{
     overflow-y:scroll;
     overflow-x: hidden;
     scrollbar-width: thin;
