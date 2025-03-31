@@ -414,44 +414,6 @@
   font-weight: 500; /* Make text slightly bolder */
 }
 
-/* Override react-datepicker styles to match the app theme */
-:global(.react-datepicker) {
-  font-family: "Syne", sans-serif;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-:global(.react-datepicker__header) {
-  background-color: var(--background-300);
-  border-bottom: 1px solid #ddd;
-}
-
-:global(.react-datepicker__current-month),
-:global(.react-datepicker__day-name) {
-  color: #ffffff;
-}
-
-:global(.react-datepicker__day--selected),
-:global(.react-datepicker__day--in-selecting-range),
-:global(.react-datepicker__day--in-range) {
-  background-color: #4a90e2;
-  color: white !important; /* Ensure text is white on selected days */
-  font-weight: bold;
-}
-
-:global(.react-datepicker__day) {
-  color: #333; /* Color for calendar days */
-}
-
-:global(.react-datepicker__day--keyboard-selected) {
-  background-color: rgba(74, 144, 226, 0.7);
-}
-
-:global(.react-datepicker__day:hover) {
-  background-color: rgba(74, 144, 226, 0.3);
-}
-
 /* Responsive styles */
 @media (max-width: 900px) {
   .container {

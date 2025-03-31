@@ -86,6 +86,7 @@ export default function LandingPage() {
               <div className={styles.uploadArea}>
                 <input
                   type="file"
+                  required
                   id="documentUpload"
                   onChange={handleFileUpload}
                   accept=".pdf"
@@ -125,6 +126,7 @@ export default function LandingPage() {
                     <input
                       id="weekdaysHours"
                       type="number"
+                      required
                       min="0"
                       max="24"
                       value={weekdaysHours}
@@ -138,6 +140,7 @@ export default function LandingPage() {
                     <input
                       id="weekendsHours"
                       type="number"
+                      required
                       min="0"
                       max="24"
                       value={weekendsHours}
@@ -159,6 +162,7 @@ export default function LandingPage() {
                       onChange={(date) => setSemesterStartDate(date)}
                       selectsStart
                       startDate={semesterStartDate}
+                      required
                       endDate={semesterEndDate}
                       placeholderText="Select start date"
                       className={styles.datePicker}
@@ -174,6 +178,7 @@ export default function LandingPage() {
                       startDate={semesterStartDate}
                       endDate={semesterEndDate}
                       minDate={semesterStartDate}
+                      required
                       placeholderText="Select end date"
                       className={styles.datePicker}
                       dateFormat="MMM d, yyyy"
@@ -205,7 +210,7 @@ export default function LandingPage() {
         </section>
         
         <section className={styles.info_container}>
-          <h2>How It Works</h2>
+          <h2>Guidelines</h2>
           <div className={styles.info_card}>
             <>
               <li>Upload your PDF documents</li>
