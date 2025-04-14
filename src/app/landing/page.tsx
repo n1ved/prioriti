@@ -177,7 +177,7 @@ export default function LandingPage() {
                       selectsEnd
                       startDate={semesterStartDate}
                       endDate={semesterEndDate}
-                      minDate={semesterStartDate}
+                      minDate={semesterStartDate || undefined}
                       required
                       placeholderText="Select end date"
                       className={styles.datePicker}
