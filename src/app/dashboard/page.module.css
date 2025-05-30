@@ -76,3 +76,15 @@
     overflow-x: hidden;
     scrollbar-width: thin;
 }
+
+.checklist_course_title{
+    background-color: var(--accent-100);
+    padding: 0.5rem 1rem;
+    margin: 0.5rem 0;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 1rem;
+    max-width: fit-content;
+    display: flex;
+    gap: 0.5rem;
+}
