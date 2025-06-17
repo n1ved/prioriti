@@ -8,7 +8,7 @@
   margin-bottom: 3rem;
   width: 100%;
   height: calc(100vh - 6rem); /* Adjust height to fit in viewport minus nav and padding */
-  overflow: hidden; /* Prevent container overflow */
+  overflow: auto; /* Prevent container overflow */
   font-family: "Syne", sans-serif;
 }
 
@@ -21,6 +21,7 @@
     font-size: 5rem;
     color: #fff;
     text-align: center;
+
 }
 
 .header p {
@@ -56,6 +57,7 @@
   font-family: "QuickSand", sans-serif;
   font-size: 3rem;
   color: #fff;
+  position:fixed;
 }
 
 .form {
@@ -63,9 +65,8 @@
   flex-direction: column;
   gap: 1.5rem;
   max-height: 100%;
-  overflow-y: auto; /* Changed to auto to enable scrolling */
-  position: relative; /* Create stacking context */
-  padding-bottom: 1.5rem; /* Return to reasonable padding */
+  overflow-y: hidden; /* Changed to auto to enable scrolling */
+  position: relative; /* Create stacking context */ 
 }
 
 .uploadSection, .preferencesSection {
@@ -110,7 +111,7 @@
   display: inline-block;
   background-color: #4a90e2;
   color: white;
-  padding: 0.75rem 1.5rem;
+  padding: 0.75rem 1rem;
   border-radius: 4px;
   cursor: pointer;
   font-weight: 500;
@@ -129,7 +130,7 @@
   padding: 1.5rem; /* Increased padding */
   margin-top: 1.5rem;
   margin-bottom: 1rem;
-  min-height: 150px; /* Minimum height */
+  min-height: 100px; /* Minimum height */
   max-height: 400px; /* Reasonable max height */
   overflow-y: auto;
   border: 1px solid #ffffff; /* Slightly darker border */
@@ -155,7 +156,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem; /* More padding */
+  padding: 0.5rem; /* More padding */
   background-color:rgb(255, 255, 255);
   margin-top: 0.5rem; 
   margin-bottom: 0.7rem; /* More space between items */
@@ -297,12 +298,12 @@
   background-color: var(--background-300);
   border-radius: 16px;
   padding: 1.5rem;
-  margin-bottom: 3rem;
+  margin-bottom: 0%;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   max-height: calc(100vh - 20rem); 
-  overflow-y: auto; /* Changed from hidden to auto to allow scrolling */
+  overflow-y: hidden; /* Changed from hidden to auto to allow scrolling */
   position: relative; /* Ensure proper positioning context */
   padding-bottom: 1.5rem; /* Return to reasonable padding */
   
