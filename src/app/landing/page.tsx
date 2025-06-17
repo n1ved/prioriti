@@ -38,7 +38,7 @@ export default function LandingPage() {
       setTimeout(() => setMessage({ text: '', type: '' }), 3000);
       return;
     }
-    // Send PDFs to backend here
+    // PDFs to backend here
     setMessage({ text: 'PDFs uploaded to backend successfully!', type: 'success' });
     setTimeout(() => setMessage({ text: '', type: '' }), 3000);
   };
@@ -116,7 +116,6 @@ export default function LandingPage() {
       )}
 
       <div className={styles.container} style={{ overflow: 'visible', height: 'auto', minHeight: 'calc(100vh - 6rem)' }}>
-        {/* Left column - Guidelines and Upload Documents */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
           <section className={styles.info_container}>
             <h2>Guidelines</h2>
@@ -209,7 +208,6 @@ export default function LandingPage() {
           </section>
         </div>
 
-        {/* Right column - Get Started */}
         <section className={styles.upload_container}>
           <h2>Get Started</h2>
           <div className={styles.upload_card} style={{ 
